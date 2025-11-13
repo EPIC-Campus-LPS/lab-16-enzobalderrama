@@ -129,7 +129,18 @@ public class LifeModel implements ActionListener
      */
     public void oneGeneration()
     {
-    	
+    	for (int i = 0; i < myGrid.length; i++) {
+    		for (int j = 0; j < myGrid[i].length; j++) {
+    			int nln = numLiveNeighbors(i,j);
+    			if (nln < 2 || nln > 3) {
+    				myGrid[i][j].setAliveNext(false);
+    			}
+    			if (nln == 3) {
+    				myGrid[i][j].setAliveNext(true);
+    			}
+    		}
+    	}
+    	updateNextGen();
     } 
     
     /**
@@ -139,7 +150,11 @@ public class LifeModel implements ActionListener
      * use for each loops
      */
     private void updateNextGen() {
-
+    	for (int i = 0; i < myGrid.length; i++) {
+    		for(int j = 0; j < myGrid[i].length; j++) {
+    			myGrid[i][j].setAliveNow(myGrid[i][j].isAliveNext());
+    		}
+    	}
     }
      
     /**
@@ -154,7 +169,39 @@ public class LifeModel implements ActionListener
      */
     private int numLiveNeighbors (int row, int col)
     {
-       return 0;
+      if (inBounds(row,col) == false) {
+    	  return 0;
+      }
+      int count = 0;
+      if (inBounds(row+1, col) == true) {
+    	  if (myGrid[row+1][col].isAliveNow() == true) {
+      		count++;
+        }
+      }
+      if (inBounds(row-1, col) == true) {
+    	  if (myGrid[row-1][col].isAliveNow() == true) {
+      		count++;
+        }
+      }
+      if (myGrid[row+1][col+1].isAliveNow() == true) {
+    		count++;
+      }
+      if (myGrid[row+1][col-1].isAliveNow() == true) {
+    		count++;
+      }
+      if (myGrid[row-1][col-1].isAliveNow() == true) {
+    		count++;
+      }
+      if (myGrid[row-1][col+1].isAliveNow() == true) {
+    		count++;
+      }
+	  if (myGrid[row][col+1].isAliveNow() == true) {
+    		count++;
+      }
+      if (myGrid[row][col-1].isAliveNow() == true) {
+    	    count++;
+      }
+      return count;
     }
     
     /**
@@ -167,6 +214,9 @@ public class LifeModel implements ActionListener
      */
     private boolean inBounds(int row, int col)
     {
+        if (row < 60 && row > -1 && col < 60 && col > -1) {
+        	return true;
+        }
         return false;
     }
 }
