@@ -43,7 +43,7 @@ public class LifeModel implements ActionListener
       
         try
         {
-        	File reader = new File("life100.txt");
+        	File reader = new File("blinker_lif.dat");
         	Scanner infile = new Scanner(reader);
         	int numInitialCells = infile.nextInt();
             for (int count=0; count<numInitialCells; count++)
@@ -183,23 +183,35 @@ public class LifeModel implements ActionListener
       		count++;
         }
       }
-      if (myGrid[row+1][col+1].isAliveNow() == true) {
-    		count++;
+      if (inBounds(row+1, col+1) == true) {
+    	  if (myGrid[row+1][col+1].isAliveNow() == true) {
+      		count++;
+        }
       }
-      if (myGrid[row+1][col-1].isAliveNow() == true) {
-    		count++;
+      if (inBounds(row+1, col-1) == true) {
+    	  if (myGrid[row+1][col-1].isAliveNow() == true) {
+      		count++;
+        }
       }
-      if (myGrid[row-1][col-1].isAliveNow() == true) {
-    		count++;
+      if (inBounds(row-1, col-1) == true) {
+    	  if (myGrid[row-1][col-1].isAliveNow() == true) {
+      		count++;
+        }
       }
-      if (myGrid[row-1][col+1].isAliveNow() == true) {
-    		count++;
+      if (inBounds(row-1, col+1) == true) {
+    	  if (myGrid[row-1][col+1].isAliveNow() == true) {
+      		count++;
+        }
       }
-	  if (myGrid[row][col+1].isAliveNow() == true) {
-    		count++;
+      if (inBounds(row, col+1) == true) {
+    	  if (myGrid[row][col+1].isAliveNow() == true) {
+      		count++;
+        }
       }
-      if (myGrid[row][col-1].isAliveNow() == true) {
-    	    count++;
+      if (inBounds(row, col-1) == true) {
+    	  if (myGrid[row][col-1].isAliveNow() == true) {
+      		count++;
+        }
       }
       return count;
     }
